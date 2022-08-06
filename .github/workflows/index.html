@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Reminder App</title>
+    <style>
+
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        #timeChoose{
+            /* border: 1px solid red; */
+            width: 40%;
+            height: auto;
+            align-items: center;
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            margin-top: 10%;
+            text-align: center;
+            background-color: --title;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+        #updateTimeHere{
+            margin: 3%;
+            margin: auto;
+
+            
+        }
+        input{
+            color: blueviolet;
+            margin: 2%;
+            cursor: pointer;
+        }
+        input:hover{
+            background-color: lightblue;
+            cursor: pointer;
+            height: 50px;
+        }
+
+        button{
+
+            margin: auto;
+            justify-content: center;
+            display: flex;
+            border-radius:10px;
+            width: 20%;
+            padding: 2%;
+            background-color: azure;
+            height: 40px;
+
+        }
+        button:hover{
+            background-color: blueviolet;
+            color: aquamarine;
+        }
+        audio{
+            background-color: burlywood;
+            width: 100%;
+            height: 50px;
+            cursor: pointer;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="timeChoose">
+      <h3 id="updateTimeHere">CHoose time from Here</h3>
+      <input type="time" id="time" />
+      <button onclick="timeSubmitFunc()">Remind</button>
+      <audio src="" id="audio" controls autoplay>
+        <source
+          src="https://open.spotify.com/track/0TkyAwi6LZCHEUrYKdc90N?si=beff0e01141c4a8a"
+          type="audio/ogg"
+        />
+        <source
+          src="https://open.spotify.com/track/0TkyAwi6LZCHEUrYKdc90N?si=beff0e01141c4a8a"
+          type="audio/mpeg"
+        />
+      </audio>
+    </div>
+    <div id="audioPlay"></div>
+  </body>
+</html>
+
+<script>
+  // var arr = []
+  let source = "https://open.spotify.com/track/0TkyAwi6LZCHEUrYKdc90N?si=beff0e01141c4a8a";
+  let timeID;
+
+  let timeSubmitFunc = () => {
+    let time = document.getElementById("time").value;
+    console.log(time);
+    let [Hour, Min] = time.trim().split(":");
+    // arr.push(`${Hour}:${Min}:${Seconds}`);
+    console.log(`${Hour}:${Min}`);
+    let timeID = setInterval(() => {
+      let currentTimeDate = new Date();
+      let Hours = currentTimeDate.getHours();
+      let Mins = currentTimeDate.getMinutes();
+      let Sec = currentTimeDate.getSeconds();
+
+      document.getElementById(
+        "updateTimeHere"
+      ).innerHTML = `${Hours}:${Mins}:${Sec}`;
+      if (Hour == Hours && Min == Mins) {
+        alert("Bhai kya Kar raha hey Tu ?? Time to DO something Dude");
+        clearInterval(timeID);
+        let x = document.getElementById("audio");
+        // x.autoplay = true;
+        x.load();
+        x.addEventListener("load",function () {
+            x.play();
+          },true);
+          x.src = source
+        document.getElementById("audioPlay").innerHTML = x;
+      }
+    }, 1000);
+  };
+  // console.log(arr)
+
+  // COnverting the Input Time Format into 24 Hour FOrmat using DSA
+
+//   function timeConversion(s) {
+//     // Write your code here
+//     var h1 = Number(s[1] - "0");
+//     var h2 = Number(s[0] - "0");
+//     var hh = h2 * 10 + (h1 % 10);
+//     var sum = "";
+//     if (s[8] === "A") {
+//       if (hh === 12) {
+//         sum += "00";
+//         for (var i = 2; i <= 7; i++) {
+//           sum += s[i];
+//         }
+//       } else {
+//         for (var i = 0; i <= 7; i++) {
+//           sum += s[i];
+//         }
+//       }
+//     } else {
+//       if (hh === 12) {
+//         sum += "12";
+//         for (var i = 2; i <= 7; i++) {
+//           sum += s[i];
+//         }
+//       } else {
+//         hh += 12;
+//         sum += hh;
+//         for (var i = 2; i <= 7; i++) {
+//           sum += s[i];
+//         }
+//       }
+//     }
+//     return sum;
+//   }
+</script>
